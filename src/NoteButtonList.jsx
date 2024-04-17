@@ -1,7 +1,7 @@
 import NoteButton from "./NoteButton";
 
-export default function NoteButtonList ({array, onClick}) {
-const reversed = array.toReversed()
+export default function NoteButtonList ({array, onClick, activeId}) {
+const reversed = array.toReversed() //werkt niet? Doel: recentste note vanboven doen verschijnen
 
     return (
         <>
@@ -12,6 +12,7 @@ const reversed = array.toReversed()
                         key={note.id}
                         note={note}
                         onClick={onClick}
+                        activeId={activeId}
                     />
                 ))}
             </div>

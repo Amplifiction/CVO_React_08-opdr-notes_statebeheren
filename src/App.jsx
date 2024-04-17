@@ -6,12 +6,16 @@ import NoteButtonList from './NoteButtonList';
 import HeaderButton from './HeaderButton';
 
 function App() {
-const [activeNoteId, setActiveNoteId] = useState (null)
+const [activeNoteId, setActiveNoteId] = useState (-1)
 const [activeButton, setActiveButton] = useState (0)
 
 //CRUD
 const [notes, dispatch] = useReducer(notesReducer, [])
-const handleAddNote = () => dispatch({type: 'addNote'})
+const handleAddNote = () => {
+    dispatch({type: 'addNote'})
+    setActiveNoteId(notes[notes.length - 1].id)
+    // id wordt niet gevonden!
+}
 const handleEditNote = (id) => dispatch({type: 'editNote', id})
 const handleDelNote = (id) => dispatch({type: 'delNote', id})
 const handleFavNote = (id) => dispatch({type: 'favNote', id})
@@ -21,10 +25,6 @@ const isStarred = activeNote? activeNote.favo : false
 
 const noNotes = notes.length<1
 
-function handleNoteClick(id) {
-    setActiveNoteId(id)
-}
-
 return (
 <div id="app">
 
@@ -33,7 +33,6 @@ return (
         shape='plus'
         onClick={handleAddNote}
     />
-    {/* <!-- voeg "starred" CSS class toe voor actieve status --> */}
     <Icon
         shape='star'
         onClick={handleFavNote}
@@ -68,7 +67,8 @@ return (
     <p>No notes.</p> 
     : <NoteButtonList
         array={notes}
-        onClick={handleNoteClick}
+        onClick={setActiveNoteId}
+        activeId={activeNoteId}
     />
     }
     </div>
@@ -84,4 +84,6 @@ return (
 
 export default App;
 
+//TO DO
 //indien knoppen niet actief, disabled opmaak geven met bv opacity 0.5
+//toReversed fixen
