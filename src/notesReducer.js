@@ -3,7 +3,7 @@ export default function notesReducer(notes, action) {
         case 'addNote':
             return [
                 ...notes,
-                {id:crypto.randomUUID(), content:'', favo: false}
+                {id:crypto.randomUUID(), content:'New note', favo: false}
             ]
         case 'editNote':
             return notes.map(note => note.id === action.id? {...note, content: action.content} : note)

@@ -2,6 +2,8 @@ import { useReducer, useState } from 'react';
 import './App.css';
 import notesReducer from './notesReducer';
 import Icon from './Icon';
+import NoteButtonList from './NoteButtonList';
+import HeaderButton from './HeaderButton';
 
 function App() {
 const [activeNoteId, setActiveNoteId] = useState (null)
@@ -16,6 +18,12 @@ const handleFavNote = (id) => dispatch({type: 'favNote', id})
 
 const activeNote = notes.find(note => note.id === activeNoteId)
 const isStarred = activeNote? activeNote.favo : false
+
+const noNotes = notes.length<1
+
+function handleNoteClick(id) {
+    setActiveNoteId(id)
+}
 
 return (
 <div id="app">
@@ -42,36 +50,27 @@ return (
         <h2>Notes</h2>
 
         <div class="btn-group btn-group-justified">
-            <div class="btn-group">
-                {/* <!-- voeg "active" CSS class for actieve knop --> */}
-                <button type="button" class="btn btn-default active">All notes</button>
-            </div>
-
-            <div class="btn-group">
-                <button type="button" class="btn btn-default">Favorites</button>
-            </div>
+            <HeaderButton
+                name='All notes'
+                onClick={() => setActiveButton(0)}
+                active={activeButton==0}
+            />
+            <HeaderButton
+                name='Favorites'
+                onClick={() => setActiveButton(1)}
+                active={activeButton==1}
+            />
         </div>
     </div>
 
     <div class="container">
-
-        <div class="list-group">
-
-            {/* <!-- voeg "active" CSS class toe voor actieve note --> */}
-            <button type="button" class="list-group-item">
-                <h4 class="list-group-item-heading">
-                    Notitie tekst
-                </h4>
-            </button>
-
-            <button type="button" class="list-group-item active">
-                <h4 class="list-group-item-heading">
-                    Notitie tekst
-                </h4>
-            </button>
-
-        </div>
-
+    {noNotes?
+    <p>No notes.</p> 
+    : <NoteButtonList
+        array={notes}
+        onClick={handleNoteClick}
+    />
+    }
     </div>
 
 </div>

@@ -1,7 +1,9 @@
-export default function NoteButton ({note, }) {
-    <button type="button" class="list-group-item active">
-        <h4 class="list-group-item-heading">
-            {note.content>30? note.content.substring(0,29) : note.content}
-        </h4>
-    </button>
+export default function NoteButton ({note, onClick}) {
+    return (
+        <button type="button" className="list-group-item active" onClick={onClick(note.id)}>
+            <h4 className="list-group-item-heading">
+                {note.content.length>30? note.content.substring(0,29)+'...' : note.content}
+            </h4>
+        </button>
+    )
 }
