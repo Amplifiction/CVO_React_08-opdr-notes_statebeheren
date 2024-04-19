@@ -45,7 +45,7 @@ const [activeButton, setActiveButton] = useState ('all')
         }
     }
     const switchToAll = () => {
-        if (activeButton==='fav' && favoNotes.length<1) {
+        if (activeButton=='fav' && favoNotes.length<1) {
             setActiveButton('all') //WERKT NIET
         }
     }//einde CRUD
