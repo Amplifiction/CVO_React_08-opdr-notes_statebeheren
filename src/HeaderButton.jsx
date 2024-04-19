@@ -1,9 +1,14 @@
-export default function HeaderButton ({name, active, onClick}) {
+export default function HeaderButton ({name, active, onClick, disabled=false}) {
     const classes=`btn btn-default ${active? 'active' : ''}`
 
     return (
-        <div class="btn-group">
-            <button type="button" className={classes} onClick={onClick}>{name}</button>
+        <div className="btn-group">
+            <button
+                type="button"
+                className={classes}
+                onClick={onClick}
+                disabled={disabled}
+            >{name}</button>
         </div>
     )
 }

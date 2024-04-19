@@ -4,86 +4,102 @@ import notesReducer from './notesReducer';
 import Icon from './Icon';
 import NoteButtonList from './NoteButtonList';
 import HeaderButton from './HeaderButton';
+import NoteEditor from './NoteEditor';
 
 function App() {
+//STATES
 const [activeNoteId, setActiveNoteId] = useState (-1)
-const [activeButton, setActiveButton] = useState (0)
+const [activeButton, setActiveButton] = useState ('all')
 
 //CRUD
-const [notes, dispatch] = useReducer(notesReducer, [])
-const handleAddNote = () => {
-    dispatch({type: 'addNote'})
-    setActiveNoteId(notes[notes.length - 1].id)
-    // id wordt niet gevonden!
-}
-const handleEditNote = (id) => dispatch({type: 'editNote', id})
-const handleDelNote = (id) => dispatch({type: 'delNote', id})
-const handleFavNote = (id) => dispatch({type: 'favNote', id})
+    const [notes, dispatch] = useReducer(notesReducer, [])
+    const handleAddNote = () => {
+        const note = {
+            id:crypto.randomUUID(),
+            content:'',
+            favo: (activeButton=='fav'? true : false)
+        }
+        dispatch({type: 'addNote', note})
+        setActiveNoteId(note.id)
+    }
+    const handleEditNote = (content) => {
+        dispatch({type: 'editNote', id:activeNoteId, content})
+    }
+    const handleDelNote = () => {
+        dryHandle('delNote')
+        setActiveNoteId(-1)
+    }
+    const handleFavNote = () => {
+        dryHandle('favNote')
+        if (activeButton=='fav') {
+            setActiveNoteId(-1)
+        }
+    }
+    const dryHandle = (type) => {
+        if (activeNoteId==-1) {
+            alert('Please select a note')
+        } else {
+            dispatch({type:type, id:activeNoteId})
+        }
+    }//einde CRUD
 
+//CONSTANTS
 const activeNote = notes.find(note => note.id === activeNoteId)
 const isStarred = activeNote? activeNote.favo : false
-
-const noNotes = notes.length<1
+const favoNotes = notes.filter(note => note.favo==true)
 
 return (
 <div id="app">
 
-<div id="toolbar">
-    <Icon
-        shape='plus'
-        onClick={handleAddNote}
-    />
-    <Icon
-        shape='star'
-        onClick={handleFavNote}
-        starred={isStarred}
-    />
-    <Icon
-        shape='remove'
-        onClick={handleDelNote}
-    />
-</div>
+    <div id="toolbar">
+        <Icon
+            shape='plus'
+            onClick={handleAddNote}
+        />
+        <Icon
+            shape='star'
+            onClick={handleFavNote}
+            starred={isStarred}
+            disabled={!activeNote}
+        />
+        <Icon
+            shape='remove'
+            onClick={handleDelNote}
+            disabled={!activeNote}
+        />
+    </div>
 
-<div id="notes-list">
-    <div id="list-header">
-        <h2>Notes</h2>
-
-        <div class="btn-group btn-group-justified">
-            <HeaderButton
-                name='All notes'
-                onClick={() => setActiveButton(0)}
-                active={activeButton==0}
-            />
-            <HeaderButton
-                name='Favorites'
-                onClick={() => setActiveButton(1)}
-                active={activeButton==1}
-            />
+    <div id="notes-list">
+        <div id="list-header">
+            <h2>Notes</h2>
+            <div className="btn-group btn-group-justified">
+                <HeaderButton
+                    name='All notes'
+                    onClick={() => setActiveButton(0)}
+                    active={activeButton==0}
+                />
+                <HeaderButton
+                    name='Favorites'
+                    onClick={() => setActiveButton(1)}
+                    active={activeButton==1}
+                    disabled={favoNotes.length<1}
+                />
+            </div>
         </div>
+        <NoteButtonList
+            array={activeButton==0? notes : favoNotes}
+            onClick={setActiveNoteId}
+            activeId={activeNoteId}
+            activeButton={activeButton}
+        />
     </div>
 
-    <div class="container">
-    {noNotes?
-    <p>No notes.</p> 
-    : <NoteButtonList
-        array={notes}
-        onClick={setActiveNoteId}
-        activeId={activeNoteId}
+    <NoteEditor
+        note={activeNote? activeNote : 'noNote'}
+        onChange={handleEditNote}
     />
-    }
-    </div>
-
-</div>
-
-<div id="note-editor">
-    <textarea placeholder="Nieuwe notitie" class="form-control" value=""></textarea>
-</div>
-</div>
+</div> //einde app
 );
 }
 
 export default App;
-
-//TO DO
-//indien knoppen niet actief, disabled opmaak geven met bv opacity 0.5
-//toReversed fixen

@@ -87,3 +87,22 @@ body {
 .starred {
   color: #F7AE4F;
 }
+
+.fs-ita {
+  font-style: italic;
+}
+
+.txt-center {
+  text-align: center;
+}
+
+.flex-doubleCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.disabledIcon {
+  opacity: 0.2 !important;
+  cursor: not-allowed;
+}

@@ -1,10 +1,12 @@
 export default function NoteButton ({note, onClick, activeId}) {
-const classes = `list-group-item ${note.id==activeId? 'active' : ''}`
+const btnClasses = `list-group-item ${note.id==activeId? 'active' : ''}`
+const hClasses = `list-group-item-heading ${note.content==''? 'fs-ita' : ''}`
 
     return (
-        <button type="button" className={classes} onClick={(e) =>onClick(note.id)}>
-            <h4 className="list-group-item-heading">
-                {note.content.length>30? note.content.substring(0,29)+'...' : note.content}
+        <button type="button" className={btnClasses} onClick={(e) =>onClick(note.id)}>
+            <h4 className={hClasses}>
+                {note.content==''? 'New note' : 
+                (note.content.length>30? note.content.substring(0,29)+'...' : note.content)}
             </h4>
         </button>
     )
