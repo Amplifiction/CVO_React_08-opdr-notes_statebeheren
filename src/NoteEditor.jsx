@@ -7,7 +7,6 @@ export default function NoteEditor({note, onChange}) {
             onChange={(e) => onChange(e.target.value)}
         ></textarea>
     )
-
     const noNote =  <p className="txt-center">Select a note to start editing!</p>
 
     return (

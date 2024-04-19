@@ -13,7 +13,7 @@ export default function NoteButtonList ({array, onClick, activeId, activeButton}
             ))}
         </div>
     )
-    const nolist = <p className="txt-center">No {activeButton==0? '' : 'favorite '}notes.</p>
+    const nolist = <p className="txt-center">No {activeButton=='all'? '' : 'favorite '}notes.</p>
 
     return (
         <div className="container">

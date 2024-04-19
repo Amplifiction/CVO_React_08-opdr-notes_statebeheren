@@ -28,18 +28,25 @@ const [activeButton, setActiveButton] = useState ('all')
     const handleDelNote = () => {
         dryHandle('delNote')
         setActiveNoteId(-1)
+        switchToAll()
     }
     const handleFavNote = () => {
         dryHandle('favNote')
         if (activeButton=='fav') {
             setActiveNoteId(-1)
         }
+        switchToAll()
     }
     const dryHandle = (type) => {
         if (activeNoteId==-1) {
             alert('Please select a note')
         } else {
             dispatch({type:type, id:activeNoteId})
+        }
+    }
+    const switchToAll = () => {
+        if (activeButton==='fav' && favoNotes.length<1) {
+            setActiveButton('all') //WERKT NIET
         }
     }//einde CRUD
 
@@ -75,19 +82,19 @@ return (
             <div className="btn-group btn-group-justified">
                 <HeaderButton
                     name='All notes'
-                    onClick={() => setActiveButton(0)}
-                    active={activeButton==0}
+                    onClick={() => setActiveButton('all')}
+                    active={activeButton=='all'}
                 />
                 <HeaderButton
                     name='Favorites'
-                    onClick={() => setActiveButton(1)}
-                    active={activeButton==1}
+                    onClick={() => setActiveButton('fav')}
+                    active={activeButton=='fav'}
                     disabled={favoNotes.length<1}
                 />
             </div>
         </div>
         <NoteButtonList
-            array={activeButton==0? notes : favoNotes}
+            array={activeButton=='all'? notes : favoNotes}
             onClick={setActiveNoteId}
             activeId={activeNoteId}
             activeButton={activeButton}
@@ -98,6 +105,7 @@ return (
         note={activeNote? activeNote : 'noNote'}
         onChange={handleEditNote}
     />
+
 </div> //einde app
 );
 }
