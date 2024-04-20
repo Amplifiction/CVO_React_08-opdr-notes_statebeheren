@@ -11,8 +11,20 @@ function App() {
 const [activeNoteId, setActiveNoteId] = useState (-1)
 const [activeButton, setActiveButton] = useState ('all')
 
+//CONSTANTS --> states van maken?
+const activeNote = notes.find(note => note.id === activeNoteId)
+const isStarred = activeNote? activeNote.favo : false
+const favoNotes = notes.filter(note => note.favo==true)
+
+
 //CRUD
-    const [notes, dispatch] = useReducer(notesReducer, [])
+    const [notes, dispatch] = useReducer(notesReducer, [{
+        id:crypto.randomUUID(),
+        content:
+            'Actieve branch: REDUCER.\n'+
+            'Git branch \'main\'=adhv reducer ;  branch \'noteContext\'=adhv context.',
+        favo: true
+    }])
     const handleAddNote = () => {
         const note = {
             id:crypto.randomUUID(),
@@ -26,12 +38,26 @@ const [activeButton, setActiveButton] = useState ('all')
         dispatch({type: 'editNote', id:activeNoteId, content})
     }
     const handleDelNote = () => {
-        dryHandle('delNote')
-        setActiveNoteId(-1)
-        switchToAll()
+        if (activeNoteId==-1) {
+            alert('Please select a note')
+        } else {
+            dispatch({type:'delNote', id:activeNoteId})
+            setActiveNoteId(-1)
+            if (activeButton=='fav' && favoNotes.length==1) {
+                //==1 ipv <1 omdat dispatch (net als states) pas de volgende render leeg gemaakt wordt.
+                //Op het moment dat deze check gebeurt, is de lijst nog niet leeg.
+                setActiveButton('all')
+            }
+        }
     }
     const handleFavNote = () => {
-        dryHandle('favNote')
+        if (activeNoteId==-1) {
+            alert('Please select a note')
+        } else {
+            dispatch({type:'favNote', id:activeNoteId})
+            //....
+        }
+
         if (activeButton=='fav') {
             setActiveNoteId(-1)
         }
@@ -51,11 +77,6 @@ const [activeButton, setActiveButton] = useState ('all')
             setActiveButton('all')
         }
     }//einde CRUD
-
-//CONSTANTS
-const activeNote = notes.find(note => note.id === activeNoteId)
-const isStarred = activeNote? activeNote.favo : false
-const favoNotes = notes.filter(note => note.favo==true)
 
 return (
 <div id="app">
