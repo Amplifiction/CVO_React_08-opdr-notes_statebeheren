@@ -12,7 +12,7 @@ export function NoteProvider({children}) {
             content:
                 'Actieve branch: CONTEXT.\n'+
                 'Git branch \'main\'=adhv reducer ;  branch \'noteContext\'=adhv context.\n'+
-                'To do reducer: dryHandle omvat te weinig.+Deze default note toevoegen.',
+                'To do context: setState uit context aan de praat krijgen in components. ("is not a function")',
             favo: true
         }])
 
