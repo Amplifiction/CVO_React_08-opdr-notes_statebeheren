@@ -45,8 +45,10 @@ const [activeButton, setActiveButton] = useState ('all')
         }
     }
     const switchToAll = () => {
-        if (activeButton=='fav' && favoNotes.length<1) {
-            setActiveButton('all') //WERKT NIET
+        if (activeButton=='fav' && favoNotes.length==1) {
+            //==1 ipv <1 omdat dispatch (net als states) pas de volgende render leeg gemaakt wordt.
+            //Op het moment dat deze check gebeurt, is de lijst nog niet leeg.
+            setActiveButton('all')
         }
     }//einde CRUD
 
@@ -107,7 +109,7 @@ return (
     />
 
 </div> //einde app
-);
-}
+) //einde return
+} //einde App()
 
 export default App;
