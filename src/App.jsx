@@ -27,7 +27,7 @@ function App() {
             content:'',
             favo: (activeButton=='fav'? true : false)
         }
-        dispatch({type: 'addNote', note})
+        dispatch({type: 'addNote', note}) //reducer verwacht action.note. Indien const newNote: note:newNote
         setActiveNoteId(note.id)
     }
     const handleEditNote = (content) => {
@@ -40,9 +40,9 @@ function App() {
             dispatch({type:'delNote', id:activeNoteId})
             setActiveNoteId(-1)
             if (activeButton=='fav' && favoNotes.length==1) {
+                setActiveButton('all')
                 //==1 ipv <1 omdat dispatch (net als states) pas de volgende render leeg gemaakt wordt.
                 //Op het moment dat deze check gebeurt, is de lijst nog niet leeg.
-                setActiveButton('all')
             }
         }
     }
@@ -51,11 +51,14 @@ function App() {
             alert('Please select a note')
         } else {
             dispatch({type:'favNote', id:activeNoteId})
-            if (activeButton=='fav') {
-                if (favoNotes.length===1) { //de favo lijst wordt leeg bij volgende render en dus switchen naar all notes, met behoud van activeNoteId
+            if (activeButton==='fav') {
+                if (favoNotes.length===1) {
                     setActiveButton('all')
-                } else { //de favo lijst wordt niet leeg en dus daar blijven, zodat gebruiker evt andere notes uit favo notes kan halen. Note deslecteren omdat die anders onder all notes geslecteerd staat, onzichtbaar voor gebruiker.
+                    //De favo lijst wordt leeg bij volgende render en dus switchen naar all notes, met behoud van activeNoteId.
+                } else {
                     setActiveNoteId(-1)
+                    //De favo lijst wordt niet leeg en dus in die lijst blijven, zodat gebruiker evt andere notes uit favo notes kan halen.
+                    //Note deselecteren omdat die anders onder all notes geslecteerd staat, onzichtbaar voor gebruiker.
                 }
             }
         }
