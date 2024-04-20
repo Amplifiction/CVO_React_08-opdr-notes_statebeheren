@@ -1,5 +1,10 @@
 export default function Icon ({shape, onClick, starred=false, disabled=false}) {
-const classes ="glyphicon glyphicon-"+shape + (starred ? ' starred' : '') + (disabled ? ' disabledIcon' : '')
+
+    const classes = (
+        "glyphicon glyphicon-"+shape
+        + (starred ? ' starred' : '')
+        + (disabled ? ' disabledIcon' : '')
+    )
 
     return (
     <i

@@ -1,10 +1,10 @@
-export default function NoteEditor({note, onChange}) {
+export default function NoteEditor({note}) {
     const editor = (
         <textarea
             placeholder="New note"
             className="form-control"
             value={note.content}
-            onChange={(e) => onChange(e.target.value)}
+            onChange={(e) => handleEditNote(e.target.value)}
         ></textarea>
     )
     const noNote =  (
@@ -17,7 +17,7 @@ export default function NoteEditor({note, onChange}) {
 
     return (
         <div id="note-editor" className="flex-doubleCenter">
-            {note=='noNote'?  noNote : editor}
+            {note==='noNote'?  noNote : editor}
         </div>
     )
 }

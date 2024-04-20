@@ -1,14 +1,16 @@
 import NoteButton from "./NoteButton";
+import { useContext } from 'react';
+import { NoteContext } from './noteContext';
 
-export default function NoteButtonList ({array, onClick, activeId, activeButton}) {
+export default function NoteButtonList ({array}) {
+    const {activeButton} = useContext(NoteContext)
+
     const list = (
         <div className="list-group">
             {array.map((note) => (
                 <NoteButton
                     key={note.id}
                     note={note}
-                    onClick={onClick}
-                    activeId={activeId}
                 />
             ))}
         </div>
