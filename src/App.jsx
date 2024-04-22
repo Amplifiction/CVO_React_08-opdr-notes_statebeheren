@@ -64,7 +64,7 @@ function App() {
     }//einde CRUD
 
     //CONSTANTS
-    //--> states van maken?
+    //--> states van maken? NEEN: zie React doc: id bijhouden in states en obv daarvan dit soort "computed var" bijhouden.
     //--> constants die gebruik maken van notes moeten staan ONDER de initialisatie van notes.
     const activeNote = notes.find(note => note.id === activeNoteId)
     const isStarred = activeNote? activeNote.favo : false

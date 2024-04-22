@@ -11,7 +11,7 @@ export default function NoteEditor({note, onChange}) {
         <textarea
             placeholder={note==='noNote'? "Select a note to start editing!" : 'new note'}
             className="form-control"
-            value={note.content}
+            value={note==='noNote'? '' : note.content }
             onChange={(e) => onChange(e.target.value)}
             ref={inputRef}
             disabled={note==='noNote'}
