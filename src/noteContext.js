@@ -19,7 +19,7 @@ export function NoteProvider({children}) {
             favo: true
         }])
 
-    //CONSTANTS --> states van maken?
+    //CONSTANTS --> states van maken? NEEN: zie React doc: id bijhouden in states en obv daarvan dit soort "computed var" bijhouden.
         const activeNote = notes.find(note => note.id === activeNoteId)
         const isStarred = activeNote? activeNote.favo : false
         const favoNotes = notes.filter(note => note.favo===true)
