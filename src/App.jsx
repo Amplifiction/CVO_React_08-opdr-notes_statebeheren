@@ -1,4 +1,4 @@
-import { useReducer, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import './App.css';
 import notesReducer from './notesReducer';
 import Icon from './Icon';
@@ -39,11 +39,11 @@ function App() {
         } else {
             dispatch({type:'delNote', id:activeNoteId})
             setActiveNoteId(-1)
-            if (activeButton=='fav' && favoNotes.length==1) {
-                setActiveButton('all')
+            // if (activeButton=='fav' && favoNotes.length==1) {
+            //     setActiveButton('all')
                 //==1 ipv <1 omdat dispatch (net als states) pas de volgende render leeg gemaakt wordt.
                 //Op het moment dat deze check gebeurt, is de lijst nog niet leeg.
-            }
+            // }
         }
     }
     const handleFavNote = () => {
@@ -70,6 +70,12 @@ function App() {
     const activeNote = notes.find(note => note.id === activeNoteId)
     const isStarred = activeNote? activeNote.favo : false
     const favoNotes = notes.filter(note => note.favo==true)
+
+    useEffect(() => {
+        if (notes.length === 0 && activeButton === 'fav') {
+            setActiveButton('all')
+        }
+    })
 
     return (
         <div id="app">

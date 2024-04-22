@@ -1,10 +1,20 @@
+import { useEffect, useRef } from "react"
+
 export default function NoteEditor({note, onChange}) {
+    const inputRef = useRef()
+    
+    useEffect(() => {
+        inputRef.current.focus()
+    },[note])
+
     const editor = (
         <textarea
-            placeholder="New note"
+            placeholder={note==='noNote'? "Select a note to start editing!" : 'new note'}
             className="form-control"
             value={note.content}
             onChange={(e) => onChange(e.target.value)}
+            ref={inputRef}
+            disabled={note==='noNote'}
         ></textarea>
     )
     const noNote =  (
@@ -17,7 +27,8 @@ export default function NoteEditor({note, onChange}) {
 
     return (
         <div id="note-editor" className="flex-doubleCenter">
-            {note=='noNote'?  noNote : editor}
+            {/* {note=='noNote'?  noNote : editor} */}
+            {editor}
         </div>
     )
 }
