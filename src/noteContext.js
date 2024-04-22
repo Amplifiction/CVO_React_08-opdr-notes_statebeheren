@@ -14,7 +14,8 @@ export function NoteProvider({children}) {
                 'Git branch \'main\'=adhv reducer ;  branch \'noteContext\'=adhv context.\n'+
                 '\n'+
                 'Aanpassingen aan main die niet zijn toegepast op context-branch:\n'+
-                '- effecten toevoegen: 1. NoteEditor focus. (2. App.jsx: switch to all-filter on last favo deletion. Vervangt dan laatste if van handleDelNote.)\n'+
+                '- effect toevoegen: NoteEditor focus + aanpassingen aan Editor die gevolg zijn van introductie van focus.\n'+
+                '- (effect toevoegen: switch to allNotes-filter on last favo deletion. Vervangt dan laatste if van handleDelNote.)\n'+
                 '- (index.css: disabledIcon verhuizen naar Icon style attribute)\n',
             favo: true
         }])
