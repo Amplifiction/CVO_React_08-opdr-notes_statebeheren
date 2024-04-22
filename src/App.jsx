@@ -68,7 +68,7 @@ function App() {
                     </div>
                 </div>
                 <NoteButtonList
-                    array={activeButton=='all'? notes : favoNotes}
+                    array={activeButton==='all'? notes : favoNotes}
                 />
             </div>
 
