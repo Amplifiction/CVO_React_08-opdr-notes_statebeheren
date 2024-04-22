@@ -12,7 +12,10 @@ export function NoteProvider({children}) {
             content:
                 'Actieve branch: CONTEXT.\n'+
                 'Git branch \'main\'=adhv reducer ;  branch \'noteContext\'=adhv context.\n'+
-                'To do context: effecten toevoegen. (Zie main branch.)',
+                '\n'+
+                'Aanpassingen aan main die niet zijn toegepast op context-branch:\n'+
+                '- effecten toevoegen: 1. NoteEditor focus. (2. App.jsx: switch to all-filter on last favo deletion. Vervangt dan laatste if van handleDelNote.)\n'+
+                '- (index.css: disabledIcon verhuizen naar Icon style attribute)\n',
             favo: true
         }])
 
@@ -40,7 +43,7 @@ export function NoteProvider({children}) {
             } else {
                 setNotes(notes.filter(note => note.id!== activeNoteId))
                 setActiveNoteId(-1)
-                if (activeButton==='fav' && favoNotes.length===1) {
+                if (activeButton==='fav' && favoNotes.length===1) { //kan worden vervangen door effect (zie main)
                     //===1 ipv <1 omdat dispatch (net als states) pas de volgende render leeg gemaakt wordt.
                     //Op het moment dat deze check gebeurt, is de lijst nog niet leeg.
                     setActiveButton('all')

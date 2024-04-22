@@ -104,5 +104,5 @@ body {
 
 .disabledIcon {
   opacity: 0.2 !important;
-  cursor: not-allowed;
+  cursor: not-allowed !important;
 }
