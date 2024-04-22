@@ -1,4 +1,9 @@
+import { useContext } from "react"
+import { NoteContext } from "./noteContext"
+
 export default function NoteEditor({note}) {
+    const {handleEditNote} = useContext(NoteContext)
+
     const editor = (
         <textarea
             placeholder="New note"

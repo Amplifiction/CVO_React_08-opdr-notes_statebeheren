@@ -12,7 +12,7 @@ export function NoteProvider({children}) {
             content:
                 'Actieve branch: CONTEXT.\n'+
                 'Git branch \'main\'=adhv reducer ;  branch \'noteContext\'=adhv context.\n'+
-                'To do context: setState uit context aan de praat krijgen in components. ("is not a function")',
+                'To do context: effecten toevoegen. (Zie main branch.)',
             favo: true
         }])
 
@@ -98,7 +98,10 @@ export function NoteProvider({children}) {
                 handleAddNote,
                 handleEditNote,
                 handleDelNote,
-                handleFavNote
+                handleFavNote,
+                setActiveNoteId,
+                setActiveButton,
+            //HELPFUNCTIES
         }}>
             {children}
         </NoteContext.Provider>
