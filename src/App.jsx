@@ -15,9 +15,11 @@ function App() {
     const [notes, dispatch] = useReducer(notesReducer, [{
         id:crypto.randomUUID(),
         content:
-            'Actieve branch = REDUCER.\n'+
+            'Actieve branch = REDUCER (main).\n'+
             '\n'+
-            'Git branch \'main\'=adhv reducer ;  branch \'noteContext\'=adhv context.',
+            'Git branch \'main\'=adhv reducer ;  branch \'noteContext\'=adhv context.\n'+
+            '\n'+
+            'Main is volledig up to date.',
         favo: true
     }])
     const handleAddNote = () => {
