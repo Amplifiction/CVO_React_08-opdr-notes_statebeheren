@@ -17,13 +17,13 @@ export default function NoteEditor({note, onChange}) {
             disabled={note==='noNote'}
         ></textarea>
     )
-    const noNote =  (
-            <div className="txt-center">
-                <p>~~~~</p>
-                <p>Select a note to start editing!</p>
-                <p>~~~~</p>
-            </div>
-    )
+    // const noNote =  (
+    //         <div className="txt-center">
+    //             <p>~~~~</p>
+    //             <p>Select a note to start editing!</p>
+    //             <p>~~~~</p>
+    //         </div>
+    // )
 
     return (
         <div id="note-editor" className="flex-doubleCenter">

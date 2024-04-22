@@ -16,16 +16,15 @@ function App() {
         id:crypto.randomUUID(),
         content:
             'Actieve branch = REDUCER.\n'+
-            'Git branch \'main\'=adhv reducer ;  branch \'noteContext\'=adhv context.\n'+
             '\n'+
-            'TO DO: index.css > .disabledIcon cursor not allowed werkt niet meer. (beide branches)',
+            'Git branch \'main\'=adhv reducer ;  branch \'noteContext\'=adhv context.',
         favo: true
     }])
     const handleAddNote = () => {
         const note = {
             id:crypto.randomUUID(),
             content:'',
-            favo: (activeButton=='fav'? true : false)
+            favo: (activeButton==='fav'? true : false)
         }
         dispatch({type: 'addNote', note}) //reducer verwacht action.note. Indien const newNote: note:newNote
         setActiveNoteId(note.id)
@@ -39,7 +38,7 @@ function App() {
         } else {
             dispatch({type:'delNote', id:activeNoteId})
             setActiveNoteId(-1)
-            // if (activeButton=='fav' && favoNotes.length==1) {
+            // if (activeButton=='fav' && favoNotes.length==1) { //-->verhuisd naar effecten.
             //     setActiveButton('all')
                 //==1 ipv <1 omdat dispatch (net als states) pas de volgende render leeg gemaakt wordt.
                 //Op het moment dat deze check gebeurt, is de lijst nog niet leeg.
@@ -69,13 +68,13 @@ function App() {
     //--> constants die gebruik maken van notes moeten staan ONDER de initialisatie van notes.
     const activeNote = notes.find(note => note.id === activeNoteId)
     const isStarred = activeNote? activeNote.favo : false
-    const favoNotes = notes.filter(note => note.favo==true)
+    const favoNotes = notes.filter(note => note.favo===true)
 
-    useEffect(() => {
-        if (notes.length === 0 && activeButton === 'fav') {
+    useEffect(() => { //on delete last favo note: switch to filter 'all'
+        if (favoNotes.length === 0 && activeButton === 'fav') {
             setActiveButton('all')
         }
-    })
+    }, [favoNotes.length, activeButton])
 
     return (
         <div id="app">
@@ -105,18 +104,18 @@ function App() {
                         <HeaderButton
                             name='All notes'
                             onClick={() => setActiveButton('all')}
-                            active={activeButton=='all'}
+                            active={activeButton==='all'}
                         />
                         <HeaderButton
                             name='Favorites'
                             onClick={() => setActiveButton('fav')}
-                            active={activeButton=='fav'}
+                            active={activeButton==='fav'}
                             disabled={favoNotes.length<1}
                         />
                     </div>
                 </div>
                 <NoteButtonList
-                    array={activeButton=='all'? notes : favoNotes}
+                    array={activeButton==='all'? notes : favoNotes}
                     onClick={setActiveNoteId}
                     activeId={activeNoteId}
                     activeButton={activeButton}
